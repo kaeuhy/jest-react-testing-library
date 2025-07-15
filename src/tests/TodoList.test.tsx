@@ -1,5 +1,5 @@
 import {TodoList} from "@components/TodoList";
-import {render, screen} from "@testing-library/react";
+import {fireEvent, render, screen} from "@testing-library/react";
 
 describe('<TodoList />', () => {
     const sampleTodos = [
@@ -26,5 +26,11 @@ describe('<TodoList />', () => {
         setup();
         screen.getByText(sampleTodos[0].text);
         screen.getByText(sampleTodos[1].text);
+    });
+
+    it('calls onRemove', () => {
+        const { onRemove } = setup();
+        fireEvent.click(screen.getAllByText('삭제하기')[0]);
+        expect(onRemove).toBeCalledWith(sampleTodos[0].id);
     });
 });
