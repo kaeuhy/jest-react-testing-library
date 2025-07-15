@@ -7,6 +7,10 @@ import React, { useCallback } from "react";
 export const TodoApp = () => {
     const [todos, setTodos] = useState<Todo[]>([]);
 
+    const handleCheckBox = useCallback((id: number, done: boolean) => {
+        console.log(id, done);
+    }, []);
+
     useEffect(() => {
         const data = [
             {

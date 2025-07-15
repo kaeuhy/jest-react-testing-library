@@ -10,10 +10,13 @@ describe('<TodoItem />', () => {
 
     const setup = (props = {} as TodoProps) => {
         const onRemove = jest.fn();
-        const initialProps = { todo: sampleTodo };
-        const utils = render(<TodoItem {...initialProps} {...props} onRemove={onRemove} />);
+        const handleCheckBox = jest.fn();
+        const initialProps = {todo: sampleTodo};
+        const utils = render(
+            <TodoItem {...initialProps} {...props} onRemove={onRemove} handleCheckBox={handleCheckBox}/>
+        );
         const todo = props.todo || initialProps.todo;
-        const input = screen.getByLabelText(todo.text, { selector: 'input' });
+        const input = screen.getByLabelText(todo.text, {selector: 'input'});
         const label = screen.getByText(todo.text);
         const button = screen.getByText('삭제하기');
         return {
@@ -22,12 +25,13 @@ describe('<TodoItem />', () => {
             label,
             button,
             onRemove,
+            handleCheckBox,
         };
     };
 
-    it('calls onRemove', () => {
-        const { button, onRemove } = setup();
-        fireEvent.click(button);
-        expect(onRemove).toBeCalledWith(sampleTodo.id);
+    it('calls handleCheckBox', () => {
+        const {input, handleCheckBox} = setup();
+        fireEvent.click(input);
+        expect(handleCheckBox).toBeCalledWith(sampleTodo.id, !sampleTodo.done);
     });
 });

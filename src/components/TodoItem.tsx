@@ -10,13 +10,13 @@ const Label = styled.label<LabelProps>`
   ${({ checked }) => checked && 'text-decoration: line-through;'}
 `;
 
-export const TodoItem = ({ todo, onRemove }: TodoItemProps) => {
+export const TodoItem = ({ todo, onRemove, handleCheckBox }: TodoItemProps) => {
     const { id, text, done } = todo;
     const remove = useCallback(() => onRemove(id), [id, onRemove]);
 
     return (
         <li>
-            <input type="checkbox" id={text} checked={done} readOnly />
+            <input type="checkbox" id={text} checked={done} onChange={() => handleCheckBox(id, !done)} />
             <Label htmlFor={text} checked={done}>
                 {text}
             </Label>
