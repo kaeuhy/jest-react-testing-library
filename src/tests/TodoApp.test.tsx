@@ -37,4 +37,12 @@ describe('<TodoApp />', () => {
         fireEvent.click(input);
         expect(label).toHaveStyle('text-decoration: line-through;');
     });
+
+    it('removes todo', () => {
+        render(<TodoApp />);
+        const todoText = screen.getByText('TODO-TDD');
+        const removeButton = screen.getAllByText('삭제하기');
+        fireEvent.click(removeButton[0]);
+        expect(todoText).not.toBeInTheDocument();
+    });
 });

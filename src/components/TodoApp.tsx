@@ -37,10 +37,6 @@ export const TodoApp = () => {
         [todos]
     );
 
-    const onRemove = useCallback((id: number) => {
-        console.log(id, 'onRemove');
-    }, []);
-
     const handleCheckBox = useCallback(
         (id: number, done: boolean) => {
             const filtered = todos.map(data => {
@@ -49,6 +45,14 @@ export const TodoApp = () => {
                 }
                 return data;
             });
+            setTodos(filtered);
+        },
+        [todos]
+    );
+
+    const onRemove = useCallback(
+        (id: number) => {
+            const filtered = todos.filter(data => data.id !== id);
             setTodos(filtered);
         },
         [todos]
