@@ -1,10 +1,15 @@
-import {TodoListProps} from "@types/todoListProps";
-import {TodoItem} from "@components/TodoItem";
+import { TodoListProps } from '@types/todoListProps';
+import { TodoItem } from '@components/TodoItem';
 
-export const TodoList = ({ todos, onRemove }: TodoListProps) => (
+export const TodoList = ({ todos, onRemove, handleCheckBox }: TodoListProps) => (
     <ul data-testid="TodoList">
         {todos.map(todo => (
-            <TodoItem todo={todo} key={todo.id} onRemove={onRemove} />
+            <TodoItem
+                key={todo.id}
+                todo={todo}
+                onRemove={onRemove}
+                handleCheckBox={handleCheckBox}
+            />
         ))}
     </ul>
 );

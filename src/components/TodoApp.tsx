@@ -7,10 +7,6 @@ import React, { useCallback } from "react";
 export const TodoApp = () => {
     const [todos, setTodos] = useState<Todo[]>([]);
 
-    const handleCheckBox = useCallback((id: number, done: boolean) => {
-        console.log(id, done);
-    }, []);
-
     useEffect(() => {
         const data = [
             {
@@ -45,10 +41,23 @@ export const TodoApp = () => {
         console.log(id, 'onRemove');
     }, []);
 
+    const handleCheckBox = useCallback(
+        (id: number, done: boolean) => {
+            const filtered = todos.map(data => {
+                if (data.id === id) {
+                    return { ...data, done };
+                }
+                return data;
+            });
+            setTodos(filtered);
+        },
+        [todos]
+    );
+
     return (
         <div>
             <TodoForm data-testid="helloworld" onInsert={onInsert} />
-            <TodoList todos={todos} onRemove={onRemove} />
+            <TodoList todos={todos} onRemove={onRemove} handleCheckBox={handleCheckBox} />
         </div>
     );
 };
